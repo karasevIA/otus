@@ -5,7 +5,7 @@ set(PROJECT_VESRION 0.0.${PATCH_VERSION})
 set(BOOST_TEST_MODULE test_version)
 set(BOOST_TEST_MODULE_STRING "${BOOST_TEST_MODULE}")
 
-option(CLI_ENABLE "Main programm cli enable" OFF)
+option(CLI_ENABLE "Main programm cli enable" ON)
 option(TEST_ENABLE "Unit test enable" ON)
 
 project(helloworld VERSION ${PROJECT_VESRION})
@@ -21,7 +21,7 @@ if(CLI_ENABLE)
     if (MSVC)
         target_compile_options(helloworld_cli PRIVATE
             /W4
-    )
+        )
     else ()
         target_compile_options(helloworld_cli PRIVATE
             -Wall -Wextra -pedantic -Werror
@@ -43,13 +43,12 @@ if(TEST_ENABLE)
     if (MSVC)
         target_compile_options(test_version PRIVATE
             /W4
-    )
+        )
     else ()
         target_compile_options(test_version PRIVATE
             -Wall -Wextra -pedantic -Werror
         )
     endif()
-    include(CPack)
     enable_testing()
     add_test(test_version test_version)
 endif()
