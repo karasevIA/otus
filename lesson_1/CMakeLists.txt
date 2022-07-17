@@ -45,4 +45,6 @@ if(TEST_ENABLE)
             -Wall -Wextra -pedantic -Werror
         )
     endif()
+    add_test(${BOOST_TEST_MODULE} ${BOOST_TEST_MODULE})
+    enable_testing()
 endif()

@@ -13,5 +13,4 @@ add_subdirectory(lesson_1)
 
 if(TEST_ENABLE)
     enable_testing()
-    add_test(${BOOST_TEST_MODULE} ${BOOST_TEST_MODULE})
 endif()
