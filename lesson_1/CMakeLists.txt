@@ -46,6 +46,5 @@ if(TEST_ENABLE)
             -Wall -Wextra -pedantic -Werror
         )
     endif()
-    enable_testing()
     add_test(test_version test_version)
 endif()

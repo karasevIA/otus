@@ -6,3 +6,7 @@ option(CLI_ENABLE "Main programm cli enable" ON)
 option(TEST_ENABLE "Unit test enable" ON)
 
 add_subdirectory(lesson_1)
+
+if(TEST_ENABLE)
+    enable_testing()
+endif()
