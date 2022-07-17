@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.2)
 set(PATCH_VERSION "1" CACHE INTERNAL "Patch version")
 set(PROJECT_VESRION 0.0.${PATCH_VERSION})
 set(BOOST_TEST_MODULE test_version)
+set(BOOST_TEST_MODULE_STRING "${BOOST_TEST_MODULE}")
 
 option(CLI_ENABLE "Main programm cli enable" OFF)
 option(TEST_ENABLE "Unit test enable" ON)
