@@ -5,6 +5,9 @@ set(PROJECT_VESRION 0.0.${PATCH_VERSION})
 set(BOOST_TEST_MODULE test_version)
 set(BOOST_TEST_MODULE_STRING "${BOOST_TEST_MODULE}")
 
+option(CLI_ENABLE "Main programm cli enable" ON)
+option(TEST_ENABLE "Unit test enable" ON)
+
 project(helloworld VERSION ${PROJECT_VESRION})
 configure_file(version.h.in version.h)
 
@@ -49,3 +52,15 @@ if(TEST_ENABLE)
     add_test(${BOOST_TEST_MODULE} ${BOOST_TEST_MODULE})
     enable_testing()
 endif()
+
+install(TARGETS helloworld_cli RUNTIME DESTINATION bin)
+
+set(CPACK_GENERATOR DEB)
+
+set(CPACK_PACKAGE_VERSION_MAJOR "${PROJECT_VERSION_MAJOR}")
+set(CPACK_PACKAGE_VERSION_MINOR "${PROJECT_VERSION_MINOR}")
+set(CPACK_PACKAGE_VERSION_PATCH "${PROJECT_VERSION_PATCH}")
+
+set(CPACK_PACKAGE_CONTACT example@example.com)
+
+include(CPack)
