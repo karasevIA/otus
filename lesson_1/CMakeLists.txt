@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 3.10)
 
 set(PATCH_VERSION "1" CACHE INTERNAL "Patch version")
 set(PROJECT_VESRION 0.0.${PATCH_VERSION})
-set(BOOST_TEST_MODULE test_version)
 set(BOOST_TEST_MODULE_STRING "${BOOST_TEST_MODULE}")
 
 project(helloworld VERSION ${PROJECT_VESRION})
@@ -28,23 +27,22 @@ endif()
 
 if(TEST_ENABLE)
     find_package(Boost COMPONENTS unit_test_framework REQUIRED)
-    add_executable(test_version test_version.cpp)
-    target_link_libraries(test_version ${Boost_LIBRARIES})
-    set_target_properties(test_version PROPERTIES
+    add_executable(${BOOST_TEST_MODULE} test_version.cpp)
+    target_link_libraries(${BOOST_TEST_MODULE} ${Boost_LIBRARIES})
+    set_target_properties(${BOOST_TEST_MODULE} PROPERTIES
         COMPILE_DEFINITIONS BOOST_TEST_DYN_LINK
         INCLUDE_DIRECTORIES ${Boost_INCLUDE_DIR}
         CXX_STANDARD 14
         CXX_STANDARD_REQUIRED ON
     )
-    target_include_directories(test_version PRIVATE "${CMAKE_BINARY_DIR}")
+    target_include_directories(${BOOST_TEST_MODULE} PRIVATE "${CMAKE_BINARY_DIR}")
     if (MSVC)
-        target_compile_options(test_version PRIVATE
+        target_compile_options(${BOOST_TEST_MODULE} PRIVATE
             /W4
         )
     else ()
-        target_compile_options(test_version PRIVATE
+        target_compile_options(${BOOST_TEST_MODULE} PRIVATE
             -Wall -Wextra -pedantic -Werror
         )
     endif()
-    add_test(test_version test_version)
 endif()
