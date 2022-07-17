@@ -4,24 +4,11 @@ set(PATCH_VERSION "1" CACHE INTERNAL "Patch version")
 set(PROJECT_VESRION 0.0.${PATCH_VERSION})
 set(BOOST_TEST_MODULE test_version)
 
-option(CLI_ENABLE "Main programm cli enable" ON)
-option(TEST_ENABLE "Unit test enable" OFF)
+option(CLI_ENABLE "Main programm cli enable" OFF)
+option(TEST_ENABLE "Unit test enable" ON)
 
 project(helloworld VERSION ${PROJECT_VESRION})
 configure_file(version.h.in version.h)
-
-if(TEST_ENABLE)
-    find_package(Boost COMPONENTS unit_test_framework REQUIRED)
-    add_executable(test_version test_version.cpp)
-    target_include_directories(test_version PRIVATE "${CMAKE_BINARY_DIR}")
-    target_link_libraries(test_version ${Boost_LIBRARIES})
-    set_target_properties(test_version PROPERTIES
-        COMPILE_DEFINITIONS BOOST_TEST_DYN_LINK
-        INCLUDE_DIRECTORIES ${Boost_INCLUDE_DIR}
-        CXX_STANDARD 14
-        CXX_STANDARD_REQUIRED ON
-    )
-endif()
 
 if(CLI_ENABLE)
     add_executable(helloworld_cli helloworld.cpp)
@@ -30,19 +17,38 @@ if(CLI_ENABLE)
         CXX_STANDARD 14
         CXX_STANDARD_REQUIRED ON
     )
+    if (MSVC)
+        target_compile_options(helloworld_cli PRIVATE
+            /W4
+    )
+    else ()
+        target_compile_options(helloworld_cli PRIVATE
+            -Wall -Wextra -pedantic -Werror
+        )
+    endif()
 endif()
 
-if (MSVC)
-    target_compile_options(helloworld_cli PRIVATE
-        /W4
+if(TEST_ENABLE)
+    find_package(Boost COMPONENTS unit_test_framework REQUIRED)
+    add_executable(test_version test_version.cpp)
+    target_link_libraries(test_version ${Boost_LIBRARIES})
+    set_target_properties(test_version PROPERTIES
+        COMPILE_DEFINITIONS BOOST_TEST_DYN_LINK
+        INCLUDE_DIRECTORIES ${Boost_INCLUDE_DIR}
+        CXX_STANDARD 14
+        CXX_STANDARD_REQUIRED ON
     )
-else ()
-    target_compile_options(helloworld_cli PRIVATE
-        -Wall -Wextra -pedantic -Werror
+    target_include_directories(test_version PRIVATE "${CMAKE_BINARY_DIR}")
+    if (MSVC)
+        target_compile_options(test_version PRIVATE
+            /W4
     )
-endif()
-
-if (TEST_ENABLE)
+    else ()
+        target_compile_options(test_version PRIVATE
+            -Wall -Wextra -pedantic -Werror
+        )
+    endif()
+    include(CPack)
     enable_testing()
     add_test(test_version test_version)
 endif()
