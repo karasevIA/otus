@@ -1,7 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
 
-set(PATCH_VERSION "1" CACHE INTERNAL "Patch version")
-set(PROJECT_VESRION 0.1.${PATCH_VERSION})
 set(BOOST_TEST_MODULE test_version)
 set(BOOST_TEST_MODULE_STRING "${BOOST_TEST_MODULE}")
 

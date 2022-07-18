@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.10)
 
-project(OTUS VERSION 1.0)
+set(PATCH_VERSION "1" CACHE INTERNAL "Patch version")
+set(PROJECT_VESRION 0.1.${PATCH_VERSION})
+
+project(OTUS VERSION ${PROJECT_VESRION})
 
 option(LESSON_1 "Lesson 1 project run and test enable" ON)
 
