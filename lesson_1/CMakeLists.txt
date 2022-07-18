@@ -24,6 +24,10 @@ if(CLI_ENABLE)
             -Wall -Wextra -pedantic -Werror
         )
     endif()
+    if(PACKAGE_ENABLE)
+        install(TARGETS helloworld_cli RUNTIME DESTINATION bin)
+        include(CPack)    
+    endif()
 endif()
 
 if(TEST_ENABLE)
@@ -49,13 +53,3 @@ if(TEST_ENABLE)
     add_test(${BOOST_TEST_MODULE} ${BOOST_TEST_MODULE})
     enable_testing()
 endif()
-
-install(TARGETS helloworld_cli RUNTIME DESTINATION bin)
-
-set(CPACK_PACKAGE_VERSION_MAJOR "${PROJECT_VERSION_MAJOR}")
-set(CPACK_PACKAGE_VERSION_MINOR "${PROJECT_VERSION_MINOR}")
-set(CPACK_PACKAGE_VERSION_PATCH "${PROJECT_VERSION_PATCH}")
-
-set(CPACK_PACKAGE_CONTACT example@example.com)
-
-include(CPack)
