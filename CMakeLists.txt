@@ -7,7 +7,7 @@ option(LESSON_1 "Lesson 1 project run and test enable" ON)
 if(LESSON_1)
     option(CLI_ENABLE "Main programm cli enable" ON)
     option(TEST_ENABLE "Unit test enable" ON)
-    option(PACKAGE_ENABLE "Packet generation enable" ON)
+    option(DEB_PACKAGE_ENABLE "Debian packet generation enable" ON)
     add_subdirectory(lesson_1)
 endif()
 
